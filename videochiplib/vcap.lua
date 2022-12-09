@@ -1,21 +1,37 @@
--- Library for apfrog
-local lib = {}
+-- A VideoChip Library by apfrog
+local vcap = {}
 
-lib.inputconversion = -- Returns an input between 100 or -100 in the form of 1 or -1
-function(x,y)
-	x = x / 100
-	y = y / 100
-	return x, y
-end
+-- Dont forget to clear the screen each time you use the 
 
-lib.inputdebug = -- Prints out an input thingy
+vcap.errprint =
 function(input)
-	print("------------")
+	setFgColor(91)
 	print(input)
-	print("------------")
-	print("------------")
+	resetColors()
 end
 
-return lib
+vcap.midpoint = 
+function(vc:any)
+	screensize = vec2(vc.Width, vc.Height)
+	if screensize == vec2(0,0) then
+		vcap.errprint("[VCAP] midpoint() recieved 0,0")
+		return vec2(0,0)
+	end
+	screensize -= vec2(1,1)
+	screensize = screensize / vec2(2,2)
+	return vec2(math.round(screensize.X), math.round(screensize.Y))
+end
+
+vcap.tphasrun = false
+vcap.timerprint = 
+function(cputime:number, cycle:number, input:string) -- To execute, give function gdt.CPU(number of the cpu), the intervall of execution in seconds and a text input	
+end
+
+vcap.DrawScreenBorder = 
+function(vc:any, bordercolor:any)
+	bottomcorner = vec2(vc.Height - 1, vc.Width - 1)	vc:DrawRect(vec2(0,0),bottomcorner,bordercolor)
+end
+
+return vcap
 
 
