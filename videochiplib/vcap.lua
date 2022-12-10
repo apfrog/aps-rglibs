@@ -32,6 +32,23 @@ function(vc:any, bordercolor:any)
 	bottomcorner = vec2(vc.Height - 1, vc.Width - 1)	vc:DrawRect(vec2(0,0),bottomcorner,bordercolor)
 end
 
+vcap.spawncube = 
+function(vc:VideoChip, startpoint:vec2, width:number, height:number, cubecolor:any, isFill:boolean)
+	-- Draws a filled or normal rect depending on the 
+	endpoint = vec2(startpoint.X + width, startpoint.Y + height)
+	if isFill then
+		vc:FillRect(startpoint,endpoint,cubecolor)
+	else
+		vc:DrawRect(startpoint,endpoint,cubecolor)
+	end	
+	if endpoint == vc.Height - 1 then
+		return true
+	end
+	return false
+end
+
 return vcap
 
-
+-- TODO:
+-- Add more cubes in scene at once,
+-- More functions
